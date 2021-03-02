@@ -27,12 +27,16 @@ catch(error){res.status(500).send(error)};
 
 })
 
-app.get('/create',async (req, res)=>{
+app.post('/search',async (req, res)=>{
     try
     {
-        var data = new productModel(req.body);
-        var result= await data.save();
-        res.json(result);
+         productModel.find(req.body,(error,data)=>{
+             if(error){throw error}
+             else{res.json(data)
+            }
+         });
+       
+        
     }
     catch(error)
     {res.status(500).send(error)};
